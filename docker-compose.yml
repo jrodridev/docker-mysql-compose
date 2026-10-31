@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql
+    restart: "no"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+
+    # ------------------------------------------------------------------
+    # LIMITANTES DE RECURSOS (Opcional)
+    # Quita el símbolo '#' de las siguientes líneas para activarlos
+    # ------------------------------------------------------------------
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '0.5'       # Máximo de CPU permitido (ej. 0.5 = 50% de un núcleo)
+    #       memory: 512M      # Máximo de memoria RAM permitida
+    #     reservations:
+    #       cpus: '0.1'       # CPU mínima garantizada reservada para el contenedor
+    #       memory: 256M      # RAM mínima garantizada reservada para el contenedor
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
